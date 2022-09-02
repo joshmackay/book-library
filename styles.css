@@ -1,0 +1,215 @@
+:root{
+    --bg-colour: #171717;
+    --block-colour: #444444;
+    --accent: #DA0037;
+    --text-colour: #EDEDED;
+    --card-gap-size: calc(1100px - (3*300));
+    --card-glow: #ff547f53;
+}
+
+*:not(.fa-solid),
+*:not(.fa-solid)::before,
+*:not(.fa-solid)::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-colour);
+}
+
+body{
+    background-color: var(--bg-colour);
+    
+}
+
+.header{
+    background-color: var(--block-colour);
+    height: 6rem;
+}
+
+.header-container{
+    width: 1100px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+    color: var(--accent);
+    font-weight: 300;
+}
+
+.add-book,
+.login,
+.readToggle,
+.form-buttons button{
+    width: 160px;
+    height: 50px;
+    font-weight: 300;
+    font-size: 1.5rem;
+    background-color: var(--block-colour);
+    border: 1px solid var(--accent);
+    border-radius: 15px;
+}
+
+.main{
+    min-height: calc(100vh - 6rem - 20px);
+}
+
+.footer{
+    background-color: var(--block-colour);
+    height: 20px;
+    background-color: var(--block-colour);
+    text-align: center;
+}
+
+.copyright{
+    width:auto;
+    display: block;
+}
+
+.card-container{
+    width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+    margin: 0 auto;
+    padding: 50px 0;
+   
+}
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    width: 100%;
+    background-color: var(--block-colour);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    transition: all 0.3s ease-in-out;
+}
+
+.card::after{
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 10px var(--card-glow);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+
+.card:hover::after{
+    opacity: 1;
+}
+
+.card-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+}
+
+.card-info .title{
+    font-size: 2rem;
+}
+
+.card-info .author{
+    align-self: flex-end;
+}
+
+.edit-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+i{
+    font-size: 2rem;
+    z-index: 0;
+    
+    color: var(--accent);
+}
+
+.modal-bg{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.77);
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 2;
+    height: 400px;
+    width: 300px;
+    top: calc(50% - 200px);
+    left: calc(50% - 150px);
+    background-color: var(--block-colour);
+    border-radius: 20px;
+    padding: 20px;
+    /* transition: all 0.3s ease-in-out; */
+}
+
+form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal form i{
+    align-self: flex-end;
+}
+
+.modal form, .form-inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.form-inputs{
+    gap: 20px;
+}
+
+.form-inputs label{
+    display: none;
+}
+
+.modal input{
+    width: 100%;
+    height: 40px;
+    color: var(--block-colour);
+    font-size: 1.3rem;
+    border-radius: 10px;
+    padding-left: 5px;
+    border: none;
+}
+
+.form-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons button{
+    width: 110px;
+    height:50px;
+}
