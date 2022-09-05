@@ -36,14 +36,14 @@ body{
     align-items: center;
 }
 
-h1{
+.logo{
     color: var(--accent);
     font-weight: 300;
 }
 
 .add-book,
 .login,
-.readToggle,
+.readToggleUnread,
 .form-buttons button{
     width: 160px;
     height: 50px;
@@ -52,8 +52,12 @@ h1{
     background-color: var(--block-colour);
     border: 1px solid var(--accent);
     border-radius: 15px;
+    cursor: pointer;
 }
 
+.readToggleRead{
+    border: 1px solid rgb(132, 255, 132);
+}
 .main{
     min-height: calc(100vh - 6rem - 20px);
 }
@@ -212,4 +216,8 @@ form{
 .form-buttons button{
     width: 110px;
     height:50px;
+}
+
+.fa-trash{
+    cursor: pointer;
 }

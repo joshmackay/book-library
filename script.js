@@ -1,4 +1,28 @@
-let myLibrary = [];
+class Library{
+    constructor(){
+        this.books = [];
+    }
+
+    addBookToLibrary(event){
+        event.preventDefault();
+        const newBook = getBookData();
+        console.log('in')
+        if(isInLibrary(newBook)){
+            console.log('in')
+            myLibrary.push(newBook);
+            createNewBookCard(newBook)
+        }
+    }
+    
+    deleteBook(title){
+        this.books = this.books.filter((element) => element.title !== title);
+        refreshGrid();
+    }
+    
+    isInLibrary(newBook){  
+        return this.books.some((book) => book.title === newBook.title)
+    }
+}    
 
 function Book(title, author, pages, pagesRead, bookIndex) {
     this.title = title,
@@ -13,9 +37,10 @@ Book.prototype.deleteBook = function(){
 
 }
 
-Book.prototype.createCard = function(){
-    createNewBookCard(this);
-}
+const myLibrary = new Library;
+const grid = document.querySelector(".grid");
+
+
 
 //Modal variables and functions
 const addBookBtn = document.querySelector('#addBookBtn');
@@ -43,7 +68,7 @@ function closeAddBookModal(){
 
 //collect form data
 const newBookForm = document.querySelector('#newBookForm');
-newBookForm.addEventListener('submit', addBookToLibrary);
+newBookForm.addEventListener('submit', addBook);
 
 function getBookData(){
     
@@ -54,10 +79,12 @@ function getBookData(){
     const bookIndex = myLibrary.length;
     closeAddBookModal();
     return new Book(title, author, pages, pagesRead, bookIndex);
+
 }
 
 //Build book card
 function createNewBookCard(newBook){
+    const singleCardChildForAnimation = document.createElement('div');
     const divCard = document.createElement("div");
     const divCardInfo = document.createElement('div');
     const pTitle = document.createElement('p');
@@ -78,22 +105,47 @@ function createNewBookCard(newBook){
     pAuthor.classList.add('author');
     divEditCard.classList.add('edit-card');
     iTrashButton.classList.add('fa-solid','fa-trash');
-    buttonReadToggle.classList.add('readToggle');
+    buttonReadToggle.classList.add('readToggleUnread');
 
-    document.querySelector(".card-container").appendChild(divCard);
-    divCard.appendChild(divCardInfo);
+    if(newBook.pagesRead <= newBook.pages-1){
+        buttonReadToggle.classList.add('readToggleUnread');
+    } else buttonReadToggle.classList.add('readToggleRead');
+    
+
+    document.querySelector(".grid").appendChild(singleCardChildForAnimation);
+    singleCardChildForAnimation.appendChild(divCard);
+    divCard.appendChild(divCardInfo)
     divCardInfo.appendChild(pTitle);
     divCardInfo.appendChild(pAuthor);
     divCard.appendChild(divEditCard);
     divEditCard.appendChild(iTrashButton);
     divEditCard.appendChild(buttonReadToggle);
 
-
+    iTrashButton.addEventListener('click', deleteBook)
+    buttonReadToggle.addEventListener('click', toggleRead);
 }
 
-function addBookToLibrary(event){
-    event.preventDefault();
+function addBook(e){
+    e.preventDefault();
     const newBook = getBookData();
-    myLibrary.push(newBook);
-    newBook.createCard();
+    if(!(myLibrary.isInLibrary(newBook))){
+        myLibrary.books.push(newBook);
+        createNewBookCard(newBook);
+    }else alert("Book already in Library!!")
+}
+
+function refreshGrid(){
+    document.querySelector('.grid').innerHTML = "";
+    myLibrary.books.forEach(createNewBookCard);
+}
+
+function toggleRead(e){
+    e.target.classList.add('readToggleRead');
+}
+
+
+function deleteBook(e){
+    const title = e.target.parentNode.parentNode.firstChild.firstChild.textContent;
+    myLibrary.deleteBook(title);
+    e.target.parentNode.parentNode.remove();
 }
