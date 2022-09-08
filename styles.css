@@ -44,6 +44,7 @@ body{
 .add-book,
 .login,
 .readToggleUnread,
+.readToggleRead,
 .form-buttons button{
     width: 160px;
     height: 50px;
@@ -181,6 +182,7 @@ form{
 
 .modal form i{
     align-self: flex-end;
+    cursor: pointer;
 }
 
 .modal form, .form-inputs{
@@ -209,8 +211,9 @@ form{
 }
 
 .form-buttons{
-    display: flex;
-    justify-content: space-between;
+    margin: 0 auto;
+    /* display: flex;
+    justify-content: space-between; */
 }
 
 .form-buttons button{
@@ -221,3 +224,16 @@ form{
 .fa-trash{
     cursor: pointer;
 }
+
+input:focus:invalid{
+    outline: 2px solid var(--accent);
+}
+
+input:valid{
+    outline: 2px solid rgb(82, 255, 82);
+}
+
+.error {
+    font-size: 14.5px;
+    margin-top: 5px;
+  }
